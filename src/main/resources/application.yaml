@@ -1,0 +1,7 @@
+server:
+  port: 80
+hbase:
+  config:
+    zookeeper:
+      quorum: 127.0.0.1
+      port: 2181
