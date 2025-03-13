@@ -14,7 +14,6 @@ import java.io.IOException;
 @Component
 public class HBaseUtils {
     
-    private static String quorums;
     private static Connection conn = null;
     private static Admin admin = null;
     
@@ -22,8 +21,19 @@ public class HBaseUtils {
     private String quorum;
     
     @PostConstruct
-    public void getQuorum() {
-        quorums = this.quorum;
+    private void init() {
+        if (conn == null) {
+            //hbase配置对象
+            Configuration configuration = HBaseConfiguration.create();
+            //设置zookeeper地址
+            configuration.set("hbase.zookeeper.quorum", quorum);
+            try {
+                conn = ConnectionFactory.createConnection(configuration);
+                admin = conn.getAdmin();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
     
     /**
@@ -32,19 +42,8 @@ public class HBaseUtils {
      * @return
      * @throws Exception
      */
+    
     public static Connection getHBaseConnection() {
-        if (conn == null) {
-            //hbase配置对象
-            Configuration configuration = HBaseConfiguration.create();
-            //设置zookeeper地址
-            configuration.set("hbase.zookeeper.quorum", quorums);
-            try {
-                conn = ConnectionFactory.createConnection(configuration);
-                admin = conn.getAdmin();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
         return conn;
     }
     

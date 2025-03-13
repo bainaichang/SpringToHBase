@@ -1,3 +1,4 @@
+# 该项目单机启动时需要启动单机hbase
 server:
   port: 8888
 hbase:

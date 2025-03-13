@@ -78,7 +78,7 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>org.example.springandhbase.SpringAndHbaseApplication</mainClass>
-                    <skip>true</skip>
+                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>

@@ -1,0 +1,1 @@
+bn-host/127.0.1.1 Written by an hbase-2.x Master to block an attempt by an hbase-1.x HBCK tool making modification to state. See 'HBCK must match HBase server version' in the hbase refguide.

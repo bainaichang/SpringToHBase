@@ -65,4 +65,15 @@ public class HBaseData {
     public void setValue(String value) {
         this.value = value;
     }
+    
+    @Override
+    public String toString() {
+        return "HBaseData{" +
+                "tableName='" + tableName + '\'' +
+                ", rowKey='" + rowKey + '\'' +
+                ", family='" + family + '\'' +
+                ", column='" + column + '\'' +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }

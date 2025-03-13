@@ -7,16 +7,28 @@ import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.example.springandhbase.HBaseUtils;
+import org.example.springandhbase.pojo.HBaseData;
+import org.example.springandhbase.pojo.HbaseTestData;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class TestController {
+    // 用于测试接口是否能正常操作, 主要方法为get
+    @PostMapping("/post")
+    @ResponseBody
+    public String postDemo01(@RequestBody HbaseTestData data) {
+        System.out.println("test = " + data);
+        
+        return JSONUtil.createObj()
+                       .set("status", "200")
+                       .set("msg", "ok")
+                       .toString();
+    }
+    
     @GetMapping("/createTable")
     @ResponseBody
     public String createDemo01(@RequestParam("tableName") String tableName,
@@ -68,6 +80,7 @@ public class TestController {
                             @RequestParam("column") String column,
                             @RequestParam("value") String value) {
         Connection conn = HBaseUtils.getHBaseConnection();
+        // ret对象用于存放返回结果的json文本, 其他方法也是
         JSONObject ret = JSONUtil.createObj();
         Table table;
         try {
@@ -127,7 +140,7 @@ public class TestController {
             String c = Bytes.toString(cell.getQualifierArray(), cell.getQualifierOffset(), cell.getQualifierLength());
             // 获得值
             String v = Bytes.toString(cell.getValueArray(), cell.getValueOffset(), cell.getValueLength());
-            ret.set(f+":"+c,v);
+            ret.set(f + ":" + c, v);
         }
         ret.set("status", "200")
            .set("msg", "ok");
