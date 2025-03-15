@@ -6,3 +6,6 @@ hbase:
     zookeeper:
       quorum: 127.0.0.1
       port: 2181
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss}){faint} %clr(%-5level) %clr([%thread]){faint} %clr(%logger{15}){cyan} %clr(:){faint} %magenta(%C{1}) %clr(:){faint} %magenta(%L) ===> %msg%n"
